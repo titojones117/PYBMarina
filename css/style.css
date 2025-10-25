@@ -17,13 +17,23 @@ marquee{
     position: relative;
 }
 
+#logo {
+    text-align: center;
+    margin-bottom: -50px;
+}
+
+#pizza-logo{
+    width: 450px;
+    height: auto;
+}
+
 /* Ensure viewport height and remove default margins so vertical centering works */
 html, body {
     margin: 0;
 }
 
 #start-menu {
-    position: fixed;
+    position: absolute;
     inset: 0; /* top:0; right:0; bottom:0; left:0 */
     display: flex;
     justify-content: center;
@@ -60,8 +70,8 @@ html, body {
 }
 
 @keyframes rotate360 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    50% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 #pizza-peel{
