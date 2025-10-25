@@ -17,7 +17,17 @@ marquee{
     position: relative;
 }
 
-/* Ensure viewport height and remove default margins so vertical centering works */
+#logo {
+    text-align: center;
+    max-height: 300px;
+}
+
+#pizza-logo{
+    width: 600px;
+    height: 600px;
+    margin-top: -180px;
+}
+
 html, body {
     margin: 0;
 }
@@ -34,12 +44,12 @@ html, body {
 #pizza-start-menu{
     display: block;
     position: static;
+    width: 700px;
     max-width: 70vmin; /* scales with the viewport */
     height: auto;
     animation: rotate360 5s linear infinite;
 }
 
-/* Style the buttons container to not take up full screen */
 #buttons {
     position: absolute;
     bottom: 20px;
@@ -50,13 +60,11 @@ html, body {
     z-index: 20;
 }
 
-#buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 2px solid #333;
-    background-color: rgba(255, 255, 255, 0.9);
+#start-button {
+    border: none;
+    background: none;
+    padding: 0;
     cursor: pointer;
-    border-radius: 5px;
 }
 
 @keyframes rotate360 {
