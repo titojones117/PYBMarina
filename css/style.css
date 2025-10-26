@@ -25,7 +25,7 @@ marquee{
 #pizza-logo{
     width: 600px;
     height: 600px;
-    margin-top: -180px;
+    margin-top: -210px;
 }
 
 html, body {
@@ -70,12 +70,6 @@ html, body {
 #start-button-img{
     width: 200px;
     height: auto;
-}
-
-#start-button-img:hover{
-    transform: scale(1.1);
-    transition: transform 0.3s;
-    
 }
 
 @keyframes rotate360 {

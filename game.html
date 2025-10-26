@@ -6,6 +6,7 @@
         <link rel="stylesheet" href = "css/game.css">
     </head>
     <body style="background-image: url(img/counter.png); background-repeat: no-repeat; height: 100vh; width: 100vw;">
+        <audio id="background-music" src="music/gamesong.mp3" loop autoplay></audio>
         <div class="hand"><img src="img/hand.png" style="position:absolute" alt="Hand"></div>
         <div id="customer-container">
             <img id="tv" src="img/tv.png" alt="TV">
@@ -22,6 +23,8 @@
                             <span>s</span>
                         </div>
                         <div id="game-status">
+                            <span>Happy Customers: </span>
+                            <span id="happy-count">0</span>
                             <span>Unsatisfied Customers: </span>
                             <span id="angry-count">0</span>
                             <span>/3</span>
@@ -34,6 +37,31 @@
         <div id="controls">
             <button id="serve-btn">Serve</button>
         </div>
+        
+        <div id="pizza-area">
+            <div id="tomato-layer"></div>
+            <div id="web-layer"></div>
+            <div id="toes-layer"></div>
+            <div id="toenails-layer"></div>
+            <div id="eyeballs-layer"></div>
+            <div id="intestines-layer"></div>
+            <div id="flies-layer"></div>
+            <div id="brains-layer"></div>
+        </div>
+
+        <div id="trash" onclick="vacuumFunction()"><p id="trash-text">TRASH</p></div>
+        
+        <div id="ingredients">
+            <!-- Ingredients will be dynamically added here -->
+            <div id="tomato-sauce" class="ingredient">Sauce</div>
+            <div id="webs" class="ingredient">Webs</div>
+            <div id="toes" class="ingredient">Toes</div>
+            <div id="toenails" class="ingredient">Nails</div>
+            <div id="eyeballs" class="ingredient">Eyes</div>
+            <div id="intestines" class="ingredient">Guts</div>
+            <div id="flies" class="ingredient">Flies</div>
+            <div id="brains" class="ingredient">Brains</div>
+        </div>
 
         
 
@@ -42,6 +70,7 @@
                 <h1>GAME OVER!</h1>
                 <p>You left too many customers unsatisfied with your service!</p>
                 <button id="restart-btn">Play Again</button>
+                <a href="index.html"><button id="quit-btn">Exit to Main Menu</button></a>
             </div>
         </div>
 

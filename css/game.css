@@ -81,7 +81,6 @@ body {
     display: flex;
 }
 
-
 #serve-btn {
     background-color: #4CAF50;
     width:150px;
@@ -91,10 +90,9 @@ body {
     border-color: yellow;
     border-width: 5px;
     font-family: 'Times New Roman', Times, serif;
-}
-
-#serve-btn:hover {
-    background-color: #45a049;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 #serve-btn:disabled {
@@ -193,7 +191,9 @@ body {
 #restart-btn {
     background-color: #4CAF50;
     color: white;
-    border: none;
+    border-style: groove;
+    border-color: yellow;
+    border-width: 5px;
     padding: 15px 30px;
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
@@ -201,7 +201,161 @@ body {
     cursor: pointer;
 }
 
-#restart-btn:hover {
-    background-color: #45a049;
+#quit-btn {
+    background-color: #f44336;
+    color: white;
+    border-style: groove;
+    border-color: yellow;
+    border-width: 5px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+}   
+
+/* Base styling for all ingredient items */
+.ingredient {
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
+#eyeballs,
+#tomato-sauce,
+#webs,
+#toes,
+#toenails,
+#intestines,
+#flies,
+#brains {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    background-color: transparent;
+    border: none;
+}
+
+/* Individual positioning for each ingredient to align with bowls */
+/* Left column */
+#tomato-sauce {
+    bottom: 400px;
+    right: 300px;
+}
+
+#toes {
+    bottom: 280px;
+    right: 300px;
+}
+
+#eyeballs {
+    bottom: 160px;
+    right: 300px;
+}
+
+#flies {
+    bottom: 40px;
+    right: 300px;
+}
+
+/* Right column */
+#webs {
+    bottom: 400px;
+    right: 130px;
+}
+
+#toenails {
+    bottom: 280px;
+    right: 130px;
+}
+
+#intestines {
+    bottom: 160px;
+    right: 130px;
+}
+
+#brains {
+    bottom: 40px;
+    right: 130px;
+}
+
+/* Pizza building area */
+#pizza-area {
+    position: absolute;
+    bottom: 100px;
+    left: 50px;
+    z-index: 15;
+}
+
+#pizza-box {
+    width: 300px;
+    height: 200px;
+    background-color: rgba(139, 69, 19, 0.9);
+    border: 3px solid #8B4513;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+}
+
+#pizza-box h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #FFD700;
+}
+
+#pizza-toppings {
+    width: 100%;
+    height: 120px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px dashed #FFD700;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 5px;
+    padding: 5px;
+}
+
+#trash{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    width: 490px;
+    height: 350px;
+    cursor: pointer;
+    left: 30px;
+    bottom: 45px;
+}
+
+#trash-text {
+    font-size: 60px;
+    color: yellow;
+    font-weight: bold;
+
+.pizza-topping {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #45a049;
+}

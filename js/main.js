@@ -40,11 +40,26 @@ const CUSTOMERS = ['Banana', 'Christmas', 'Girl', 'Karen', 'Man', 'Old'];
 const EMOTIONS = ['Normal', 'Happy', 'Angry'];
 const TOPPINGS = ['Eyeballs', 'Toes', 'Tomato Sauce', 'Webs', 'Flies', 'Brains', 'Intestines', 'Toe Nails'];
 
+// Mapping ingredients to their integer values
+const INGREDIENT_VALUES = {
+    'eyeballs': 0,      // Eyeballs
+    'toes': 1,          // Toes
+    'tomato-sauce': 2,  // Tomato Sauce
+    'webs': 3,          // Webs
+    'flies': 4,         // Flies
+    'brains': 5,        // Brains
+    'intestines': 6,    // Intestines
+    'toenails': 7       // Toe Nails
+};
+
 let currentCustomer = null;
 let customerTimer = null;
 let timeRemaining = 15; // 15 seconds per customer
+let happyCustomerCount = 0;
 let angryCustomerCount = 0;
 let gameOver = false;
+let currentPizzaToppings = []; // List to store selected topping values
+let currentCustomerOrder = []; // List to store customer's required toppings
 
 // Timer and game state management
 function updateTimerDisplay() {
@@ -69,6 +84,13 @@ function updateAngryCountDisplay() {
     }
 }
 
+function updateHappyCountDisplay() {
+    const happyCount = document.getElementById('happy-count');
+    if (happyCount) {
+        happyCount.textContent = happyCustomerCount;
+    }
+}
+
 function makeCustomerAngry() {
     if (currentCustomer && currentCustomer.emotion !== 'Angry') {
         currentCustomer.emotion = 'Angry';
@@ -84,7 +106,7 @@ function makeCustomerAngry() {
         
         // Update order text to show customer is leaving angry
         if (orderText) {
-            var audio = new Audio('music/Vien.mp3');
+            var audio = new Audio('music/Deanna.mp3');
             audio.play();
             orderText.textContent = "I'm leaving! This service is terrible!";
         }
@@ -99,8 +121,9 @@ function makeCustomerAngry() {
         angryCustomerCount++;
         updateAngryCountDisplay();
         
-        console.log(`Customer ${currentCustomer.type} is now angry and leaving! (${angryCustomerCount}/3)`);
-        
+        // Clear the pizza when customer gets angry
+        clearPizza();
+                
         // Check for game over
         if (angryCustomerCount >= 3) {
             triggerGameOver();
@@ -132,11 +155,16 @@ function triggerGameOver() {
 
 function restartGame() {
     gameOver = false;
+    happyCustomerCount = 0;
     angryCustomerCount = 0;
     timeRemaining = 15;
-    
+
+    updateHappyCountDisplay();
     updateAngryCountDisplay();
     updateTimerDisplay();
+    
+    // Clear the pizza
+    clearPizza();
     
     const gameOverScreen = document.getElementById('game-over-screen');
     if (gameOverScreen) {
@@ -166,7 +194,7 @@ function startCustomerTimer() {
             currentCustomer.emotion = 'Normal'; // Using Happy as intermediate state
             const customerImg = document.getElementById('customer-img');
             if (customerImg) {
-                customerImg.src = `img/NPCS/${currentCustomer.type}/Happy.png`;
+                customerImg.src = `img/NPCS/${currentCustomer.type}/Normal.png`;
             }
         }
         
@@ -186,6 +214,7 @@ function generateRandomOrder() {
     // Generate 1-4 random toppings
     const numToppings = Math.floor(Math.random() * 4) + 1;
     const selectedToppings = [];
+    const selectedValues = [];
     
     for (let i = 0; i < numToppings; i++) {
         let topping;
@@ -193,18 +222,29 @@ function generateRandomOrder() {
             topping = getRandomElement(TOPPINGS);
         } while (selectedToppings.includes(topping));
         selectedToppings.push(topping);
+        
+        // Convert topping name to ingredient value
+        const toppingIndex = TOPPINGS.indexOf(topping);
+        selectedValues.push(toppingIndex);
     }
     
+    // Store the required order for comparison
+    currentCustomerOrder = selectedValues.sort((a, b) => a - b); // Sort for easier comparison
+    
     // Create order text
+    let orderText;
     if (selectedToppings.length === 1) {
-        return `I would like a pizza with ${selectedToppings[0]}.`;
+        orderText = `I would like a pizza with ${selectedToppings[0]}.`;
     } else if (selectedToppings.length === 2) {
-        return `I would like a pizza with ${selectedToppings[0]} and ${selectedToppings[1]}.`;
+        orderText = `I would like a pizza with ${selectedToppings[0]} and ${selectedToppings[1]}.`;
     } else {
         const lastTopping = selectedToppings.pop();
-        return `I would like a pizza with ${selectedToppings.join(', ')}, and ${lastTopping}.`;
+        orderText = `I would like a pizza with ${selectedToppings.join(', ')}, and ${lastTopping}.`;
     }
+    return orderText;
 }
+
+var customers_satisfied = 0;
 
 function generateRandomCustomer() {
     // Don't generate new customers if game is over
@@ -286,7 +326,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize game state displays
     updateAngryCountDisplay();
+    updateHappyCountDisplay();
     updateTimerDisplay();
+    
+    // Initialize click functionality
+    initializeIngredientClicks();
 });
 
 // Add keyboard shortcuts
@@ -320,28 +364,98 @@ function serveCustomer() {
     // Clear the timer
     clearInterval(customerTimer);
     
-    // Make customer happy when served
-    currentCustomer.emotion = 'Happy';
-    const customerImg = document.getElementById('customer-img');
-    const orderText = document.getElementById('order-text');
+    // Check if pizza matches customer order
+    const sortedPizzaToppings = [...currentPizzaToppings].sort((a, b) => a - b);
+    const sortedCustomerOrder = [...currentCustomerOrder].sort((a, b) => a - b);
     
-    if (customerImg) {
-        customerImg.src = `img/NPCS/${currentCustomer.type}/Happy.png`;
+    console.log('Pizza toppings:', sortedPizzaToppings);
+    console.log('Customer order:', sortedCustomerOrder);
+    
+    const orderMatches = JSON.stringify(sortedPizzaToppings) === JSON.stringify(sortedCustomerOrder);
+    
+    if (orderMatches) {
+        // Customer is happy - correct order
+        currentCustomer.emotion = 'Happy';
+        const customerImg = document.getElementById('customer-img');
+        const orderText = document.getElementById('order-text');
+        
+        if (customerImg) {
+            customerImg.src = `img/NPCS/${currentCustomer.type}/Happy.png`;
+        }
+        
+        if (orderText) {
+            happyCustomerCount++;
+            updateHappyCountDisplay();
+            var audio = new Audio('music/thank.mp3');
+            audio.play();
+            orderText.textContent = "Thank you! This pizza looks delicious!";
+        }
+        
+    } else {
+        // Customer is angry - wrong order
+        makeCustomerAngry();
+        return;
     }
     
-    if (orderText) {
-        var audio = new Audio('music/thank.mp3');
-        audio.play();
-        orderText.textContent = "Thank you! This pizza looks delicious!";
-    }
+    // Clear the pizza for next customer
+    clearPizza();
     
-    console.log(`Served customer ${currentCustomer.type}! They are happy.`);
-    
-    // Generate next customer after showing happy customer for 1.5 seconds
+    // Generate next customer after showing result for 1.5 seconds
     setTimeout(() => {
         if (!gameOver) {
             generateRandomCustomer();
         }
     }, 1500);
+}
+function vacuumFunction() {
+    var audio = new Audio('music/clear.mp3');
+    audio.play();
+}
+// Pizza building functions
+function clearPizza() {
+    currentPizzaToppings = [];
+    const pizzaToppingsDiv = document.getElementById('pizza-toppings');
+    if (pizzaToppingsDiv) {
+        pizzaToppingsDiv.innerHTML = '';
+    }
+}
+
+function addToppingToPizza(ingredientValue, toppingName) {
+    currentPizzaToppings.push(ingredientValue);
+    const pizzaToppingsDiv = document.getElementById('pizza-toppings');
+    if (pizzaToppingsDiv) {
+        const toppingElement = document.createElement('div');
+        toppingElement.className = 'pizza-topping';
+        toppingElement.textContent = toppingName;
+        toppingElement.setAttribute('data-value', ingredientValue);
+        pizzaToppingsDiv.appendChild(toppingElement);
+    }
+    console.log('Added topping:', toppingName, 'Value:', ingredientValue);
+    console.log('Current pizza:', currentPizzaToppings);
+}
+
+// Click functionality for ingredients
+function initializeIngredientClicks() {
+    const ingredients = document.querySelectorAll('.ingredient');
+    
+    ingredients.forEach(ingredient => {
+        // Click functionality only
+        ingredient.addEventListener('click', function(e) {
+            const ingredientId = this.id;
+            const ingredientValue = INGREDIENT_VALUES[ingredientId];
+            const ingredientName = TOPPINGS[ingredientValue];
+            
+            addToppingToPizza(ingredientValue, ingredientName);
+            
+            // Visual feedback for click (though invisible, this might affect other properties)
+            console.log(`Added ${ingredientName} to pizza`);
+        });
+    });
+    
+    // Clear pizza button
+    const clearButton = document.getElementById('clear-pizza');
+    if (clearButton) {
+        clearButton.addEventListener('click', clearPizza);
+    }
 }
 
