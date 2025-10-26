@@ -42,7 +42,7 @@ const TOPPINGS = ['Eyeballs', 'Toes', 'Tomato Sauce', 'Webs', 'Flies', 'Brains',
 
 let currentCustomer = null;
 let customerTimer = null;
-let timeRemaining = 30; // 30 seconds per customer
+let timeRemaining = 15; // 15 seconds per customer
 let angryCustomerCount = 0;
 let gameOver = false;
 
@@ -133,7 +133,7 @@ function triggerGameOver() {
 function restartGame() {
     gameOver = false;
     angryCustomerCount = 0;
-    timeRemaining = 30;
+    timeRemaining = 15;
     
     updateAngryCountDisplay();
     updateTimerDisplay();
@@ -153,7 +153,7 @@ function startCustomerTimer() {
         clearInterval(customerTimer);
     }
     
-    timeRemaining = 30;
+    timeRemaining = 15;
     updateTimerDisplay();
     
     customerTimer = setInterval(() => {
