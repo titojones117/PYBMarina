@@ -409,11 +409,13 @@ function serveCustomer() {
         }
     }, 1500);
 }
+
 function vacuumFunction() {
     var audio = new Audio('music/clear.mp3');
     audio.play();
     clearPizza(); // Hide all ingredient layers
 }
+
 // Pizza building functions
 function clearPizza() {
     currentPizzaToppings = [];
