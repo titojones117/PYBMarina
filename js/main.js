@@ -148,9 +148,7 @@ function triggerGameOver() {
         var audio = new Audio('music/gameover.mp3');
         audio.play();
         gameOverScreen.style.display = 'flex';
-    }
-    
-    console.log('Game Over! Too many angry customers.');
+    }    
 }
 
 function restartGame() {
@@ -172,7 +170,6 @@ function restartGame() {
     }
     
     generateRandomCustomer();
-    console.log('Game restarted!');
 }
 
 function startCustomerTimer() {
@@ -275,6 +272,8 @@ function generateRandomCustomer() {
         const customerType = getRandomElement(CUSTOMERS);
         // Always start with Normal emotion
         const emotion = 'Normal';
+        var audio = new Audio('music/hi.mp3');
+        audio.play();
         
         currentCustomer = {
             type: customerType,
@@ -303,7 +302,6 @@ function generateRandomCustomer() {
         // Start the timer for this customer
         startCustomerTimer();
         
-        console.log(`New customer: ${customerType} (${emotion}) - ${currentCustomer.order}`);
     }, 1500);
 }
 
@@ -351,13 +349,13 @@ document.addEventListener('keydown', function(e) {
 
 // Function to serve the current customer
 function serveCustomer() {
+    
     if (!currentCustomer || gameOver) {
         return;
     }
     
     // Can't serve an angry customer who is already leaving
     if (currentCustomer.emotion === 'Angry') {
-        console.log("Cannot serve - customer is already angry and leaving!");
         return;
     }
     
@@ -372,6 +370,7 @@ function serveCustomer() {
     console.log('Customer order:', sortedCustomerOrder);
     
     const orderMatches = JSON.stringify(sortedPizzaToppings) === JSON.stringify(sortedCustomerOrder);
+    console.log('Order matches:', orderMatches);
     
     if (orderMatches) {
         // Customer is happy - correct order
@@ -391,13 +390,14 @@ function serveCustomer() {
             orderText.textContent = "Thank you! This pizza looks delicious!";
         }
         
+        console.log('Customer is happy!');
+        
     } else {
-        // Customer is angry - wrong order
+        console.log('Customer is angry - wrong order');
         makeCustomerAngry();
         return;
     }
     
-    // Clear the pizza for next customer
     clearPizza();
     
     // Generate next customer after showing result for 1.5 seconds
@@ -410,28 +410,53 @@ function serveCustomer() {
 function vacuumFunction() {
     var audio = new Audio('music/clear.mp3');
     audio.play();
+    clearPizza(); // Hide all ingredient layers
 }
 // Pizza building functions
 function clearPizza() {
     currentPizzaToppings = [];
-    const pizzaToppingsDiv = document.getElementById('pizza-toppings');
-    if (pizzaToppingsDiv) {
-        pizzaToppingsDiv.innerHTML = '';
-    }
+    
+    // Hide all ingredient layers (matching the HTML IDs)
+    const layerIds = [
+        'eyeballs-layer',
+        'toes-layer', 
+        'tomato-layer',
+        'web-layer',
+        'flies-layer',
+        'brains-layer',
+        'intestines-layer',
+        'toenails-layer'
+    ];
+    
+    layerIds.forEach(layerId => {
+        const layerElement = document.getElementById(layerId);
+        if (layerElement) {
+            layerElement.hidden = true;
+        }
+    });
 }
 
 function addToppingToPizza(ingredientValue, toppingName) {
     currentPizzaToppings.push(ingredientValue);
-    const pizzaToppingsDiv = document.getElementById('pizza-toppings');
-    if (pizzaToppingsDiv) {
-        const toppingElement = document.createElement('div');
-        toppingElement.className = 'pizza-topping';
-        toppingElement.textContent = toppingName;
-        toppingElement.setAttribute('data-value', ingredientValue);
-        pizzaToppingsDiv.appendChild(toppingElement);
+    
+    // Map ingredient names to their layer IDs (matching the HTML)
+    const layerMap = {
+        'Eyeballs': 'eyeballs-layer',
+        'Toes': 'toes-layer',
+        'Tomato Sauce': 'tomato-layer',
+        'Webs': 'web-layer',
+        'Flies': 'flies-layer',
+        'Brains': 'brains-layer',
+        'Intestines': 'intestines-layer',
+        'Toe Nails': 'toenails-layer'
+    };
+    
+    // Show the corresponding ingredient layer
+    const layerId = layerMap[toppingName];
+    const layerElement = document.getElementById(layerId);
+    if (layerElement) {
+        layerElement.hidden = false;
     }
-    console.log('Added topping:', toppingName, 'Value:', ingredientValue);
-    console.log('Current pizza:', currentPizzaToppings);
 }
 
 // Click functionality for ingredients
@@ -445,10 +470,11 @@ function initializeIngredientClicks() {
             const ingredientValue = INGREDIENT_VALUES[ingredientId];
             const ingredientName = TOPPINGS[ingredientValue];
             
+            var audio = new Audio('music/nasty.mp3');
+            audio.play();
+            
             addToppingToPizza(ingredientValue, ingredientName);
             
-            // Visual feedback for click (though invisible, this might affect other properties)
-            console.log(`Added ${ingredientName} to pizza`);
         });
     });
     

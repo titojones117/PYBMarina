@@ -1,3 +1,7 @@
+html{
+    cursor: none;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -18,8 +22,8 @@ body {
 #customer-container {
     position: relative;
     margin-top: -500px;
-    left: 730px;
-    top: -50px;
+    left: 725px;
+    top: -45px;
 }
 
 #tv {
@@ -39,13 +43,12 @@ body {
 }   
 
 #order-text {
-    top: 20px;
     left: 5%;
     transform: translateX(0);
     font-size: 24px;
     font-weight: bold;
     color: black;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 #customer-img {
@@ -77,12 +80,12 @@ body {
     position: absolute;
     bottom: 86%;
     left: 47%;
-    z-index: 20;
+    z-index: 100;
     display: flex;
 }
 
 #serve-btn {
-    background-color: #4CAF50;
+    background-color: green;
     width:150px;
     height: 55px;
     font-size: 20px;
@@ -92,21 +95,18 @@ body {
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+    z-index: 100;
+    position: relative;
+    cursor: none;
 }
 
 #serve-btn:disabled {
-    background-color: #888;
-    cursor: not-allowed;
+    background-color: red;
+    color: black;
     transform: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgb(0, 0, 0);
 }
 
-#serve-btn:disabled:hover {
-    background-color: #888;
-    transform: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
 
 #game-ui {
     position: absolute;
@@ -114,7 +114,7 @@ body {
     top: 170px;
     right: 16%;
     z-index: 20;
-    color: rgb(0, 0, 0);
+    color: black;
     padding: 15px;
     border-radius: 10px;
 }
@@ -126,16 +126,16 @@ body {
 }
 
 #timer-text {
-    color: #4CAF50;
+    color: green;
     font-size: 24px;
 }
 
 #timer-text.warning {
-    color: #FF9800;
+    color: orange;
 }
 
 #timer-text.danger {
-    color: #F44336;
+    color: red;
     animation: pulse 0.5s infinite;
 }
 
@@ -151,7 +151,7 @@ body {
 }
 
 #angry-count {
-    color: #F44336;
+    color: red;
     font-weight: bold;
 }
 
@@ -169,18 +169,18 @@ body {
 }
 
 #game-over-content {
-    background-color: #2c2c2c;
-    color: white;
+    cursor: default;
+    color: rgb(0, 0, 0);
     padding: 40px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 #game-over-content h1 {
-    color: #F44336;
+    color: red;
     font-size: 3em;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 #game-over-content p {
@@ -211,13 +211,12 @@ body {
     font-size: 18px;
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
-    cursor: pointer;
     margin-left: 20px;
+    cursor: pointer;
 }   
 
 /* Base styling for all ingredient items */
 .ingredient {
-    cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
@@ -237,7 +236,6 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
@@ -292,27 +290,50 @@ body {
 
 /* Pizza building area */
 #pizza-area {
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
     position: absolute;
-    bottom: 100px;
-    left: 50px;
+    bottom: 15%;
+    left: 35%;
     z-index: 15;
 }
 
-#pizza-box {
-    width: 300px;
-    height: 200px;
-    background-color: rgba(139, 69, 19, 0.9);
-    border: 3px solid #8B4513;
-    border-radius: 10px;
-    padding: 15px;
-    color: white;
-    text-align: center;
+#tomato-layer, #web-layer, #toes-layer, #toenails-layer, 
+#eyeballs-layer, #intestines-layer, #flies-layer, #brains-layer {
+    position: absolute;
+    width: 40%;
+    height: 90%;
+    border-radius: 50%;
 }
 
-#pizza-box h3 {
-    margin: 0 0 10px 0;
-    font-size: 18px;
-    color: #FFD700;
+#tomato-layer{
+    z-index: 16;
+    width: 120%;
+    height: 120%;
+    left: -10%;
+    top: -10%;
+}
+#web-layer{
+    z-index: 17;
+}
+#toes-layer{
+    z-index: 18;
+}
+#toenails-layer{
+    z-index: 19;
+}
+#eyeballs-layer{
+    z-index: 20;
+}
+#intestines-layer{
+    z-index: 21;
+}
+#flies-layer{
+    z-index: 22;
+}
+#brains-layer{
+    z-index: 23;
 }
 
 #pizza-toppings {
@@ -340,7 +361,6 @@ body {
     border-radius: 50%;
     width: 490px;
     height: 350px;
-    cursor: pointer;
     left: 30px;
     bottom: 45px;
 }
@@ -349,13 +369,19 @@ body {
     font-size: 60px;
     color: yellow;
     font-weight: bold;
+}
 
 .pizza-topping {
-    background-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.8);
     color: white;
-    padding: 5px 10px;
-    border-radius: 15px;
+    padding: 3px;
+    border-radius: 50%;
     font-size: 12px;
     font-weight: bold;
     border: 2px solid #45a049;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
 }

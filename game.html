@@ -35,24 +35,23 @@
         </div>
 
         <div id="controls">
-            <button id="serve-btn">Serve</button>
+            <button id="serve-btn">Serve Pizza</button>
         </div>
         
         <div id="pizza-area">
-            <div id="tomato-layer"></div>
-            <div id="web-layer"></div>
-            <div id="toes-layer"></div>
-            <div id="toenails-layer"></div>
-            <div id="eyeballs-layer"></div>
-            <div id="intestines-layer"></div>
-            <div id="flies-layer"></div>
-            <div id="brains-layer"></div>
+            <img src="img/Ingredients/Tomato Sauce.png" id="tomato-layer" hidden></div>
+            <img src="img/Ingredients/web.png" id="web-layer" hidden></div>
+            <img src="img/Ingredients/toe.png" id="toes-layer" hidden></div>
+            <img src="img/Ingredients/toenail.png" id="toenails-layer" hidden></div>
+            <img src="img/Ingredients/eyeballs.png" id="eyeballs-layer" hidden></div>
+            <img src="img/Ingredients/organ.png" id="intestines-layer" hidden></div>
+            <img src="img/Ingredients/fly.png" id="flies-layer" hidden></div>
+            <img src="img/Ingredients/brain.png" id="brains-layer" hidden></div>
         </div>
 
         <div id="trash" onclick="vacuumFunction()"><p id="trash-text">TRASH</p></div>
         
         <div id="ingredients">
-            <!-- Ingredients will be dynamically added here -->
             <div id="tomato-sauce" class="ingredient">Sauce</div>
             <div id="webs" class="ingredient">Webs</div>
             <div id="toes" class="ingredient">Toes</div>
@@ -66,11 +65,12 @@
         
 
         <div id="game-over-screen" style="display: none;">
-            <div id="game-over-content">
+            <div id="game-over-content" style="background-image: url(img/candy.jpg);">
                 <h1>GAME OVER!</h1>
-                <p>You left too many customers unsatisfied with your service!</p>
+                <p style="background-color: white;">You left too many customers unsatisfied with your service!</p>
                 <button id="restart-btn">Play Again</button>
                 <a href="index.html"><button id="quit-btn">Exit to Main Menu</button></a>
+                <p style="color: blueviolet; background-color: pink;">Credits:<br>Violet Le<br>Vien Le<br>Javier Jacobo</p>
             </div>
         </div>
 
