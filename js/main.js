@@ -60,6 +60,7 @@ let angryCustomerCount = 0;
 let gameOver = false;
 let currentPizzaToppings = []; // List to store selected topping values
 let currentCustomerOrder = []; // List to store customer's required toppings
+let hurryAudioPlayed = false; // Flag to ensure hurry audio only plays once
 
 // Timer and game state management
 function updateTimerDisplay() {
@@ -179,6 +180,7 @@ function startCustomerTimer() {
     }
     
     timeRemaining = 15;
+    hurryAudioPlayed = false;
     updateTimerDisplay();
     
     customerTimer = setInterval(() => {
@@ -187,15 +189,20 @@ function startCustomerTimer() {
         
         // Update customer emotion based on time
         if (timeRemaining <= 5 && currentCustomer && currentCustomer.emotion === 'Normal') {
-            // Customer becomes unhappy when time is running low
-            currentCustomer.emotion = 'Normal'; // Using Happy as intermediate state
+            currentCustomer.emotion = 'Normal';
+            
+            if (!hurryAudioPlayed) {
+                var audio = new Audio('music/Hurry.mp3');
+                audio.play();
+                hurryAudioPlayed = true;
+            }
+            
             const customerImg = document.getElementById('customer-img');
             if (customerImg) {
                 customerImg.src = `img/NPCS/${currentCustomer.type}/Normal.png`;
             }
         }
         
-        // Time's up!
         if (timeRemaining <= 0) {
             clearInterval(customerTimer);
             makeCustomerAngry();
@@ -254,7 +261,6 @@ function generateRandomCustomer() {
         clearInterval(customerTimer);
     }
     
-    // Show TV static first
     const customerImg = document.getElementById('customer-img');
     const orderText = document.getElementById('order-text');
     
@@ -270,7 +276,6 @@ function generateRandomCustomer() {
     // After 1.5 seconds of static, show the new customer
     setTimeout(() => {
         const customerType = getRandomElement(CUSTOMERS);
-        // Always start with Normal emotion
         const emotion = 'Normal';
         var audio = new Audio('music/hi.mp3');
         audio.play();
@@ -326,7 +331,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAngryCountDisplay();
     updateHappyCountDisplay();
     updateTimerDisplay();
-    
     // Initialize click functionality
     initializeIngredientClicks();
 });
@@ -347,14 +351,12 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Function to serve the current customer
 function serveCustomer() {
     
     if (!currentCustomer || gameOver) {
         return;
     }
     
-    // Can't serve an angry customer who is already leaving
     if (currentCustomer.emotion === 'Angry') {
         return;
     }
@@ -416,7 +418,7 @@ function vacuumFunction() {
 function clearPizza() {
     currentPizzaToppings = [];
     
-    // Hide all ingredient layers (matching the HTML IDs)
+    // Hide ingredients layers
     const layerIds = [
         'eyeballs-layer',
         'toes-layer', 
@@ -439,7 +441,7 @@ function clearPizza() {
 function addToppingToPizza(ingredientValue, toppingName) {
     currentPizzaToppings.push(ingredientValue);
     
-    // Map ingredient names to their layer IDs (matching the HTML)
+    // Map ingredient names to their layer IDs
     const layerMap = {
         'Eyeballs': 'eyeballs-layer',
         'Toes': 'toes-layer',
@@ -484,4 +486,3 @@ function initializeIngredientClicks() {
         clearButton.addEventListener('click', clearPizza);
     }
 }
-
