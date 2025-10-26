@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" style = "background-image: url(img/kitchen.png); background-size: cover;">
+<html lang="en">
     <head>
-        <title>Pizza</title>
+        <title>Pizza Game</title>
         <meta name = "viewport content=width-device-width, initial-scale = 1" charset="UTF-8">
         <link rel="stylesheet" href = "css/style.css">
+        <script src = "js/script.js"></script>
     </head>
 
-    <marquee direction="right">|Marina Hacks 5.0 2025|
+    <marquee direction="right" scrollamount="20">|Marina Hacks 5.0 2025|
         Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|
         Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|Marina Hacks 5.0 2025|
     </marquee>
-    <body>
+    <body style = "background-image: url(img/kitchen.png); background-size: cover; background-repeat: no-repeat; height: 100vh;">
         <audio autoplay loop><source src="music/pizzasong.mp3"></audio>
         <div id="logo">
             <img id="pizza-logo" src="img/pizza.gif" alt="Pizza Logo">
@@ -19,7 +20,8 @@
             <div id="start-menu">
                 <img id = "pizza-start-menu" src="img/pizza-menu.png">
                 <div id="buttons">
-                    <button id="start-button"><img src="img/start.gif" alt="Start"></button>
+
+                    <a id="start-button" href="game.html"><img id="start-button-img" src="img/start.gif" alt="Start"></a>
             </div> 
     </body>
 </html>
