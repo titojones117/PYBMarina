@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Pizza</title>
+        <meta name = "viewport content=width-device-width, initial-scale = 1" charset="UTF-8">
+        <link rel="stylesheet" href = "css/game.css">
+    </head>
+    <body style="background-image: url(img/counter.png); background-repeat: no-repeat; height: 100vh; width: 100vw;">
+        <div class="hand"><img src="img/hand.png" style="position:absolute" alt="Hand"></div>
+        <div id="customer-container">
+            <img id="tv" src="img/tv.png" alt="TV">
+            <img id="tv-background" src="img/tv_backdrop.png" alt="TV Background">
+            <div id="customer">
+                <img id="customer-img" src="img/NPCS/Banana/Angry.png" alt="Customer">
+            </div>
+            <div id="speech-bubble">
+                <p id="order-text">I would like a pizza with pepperoni and mushrooms.
+                    <div id="game-ui">
+                        <div id="timer-display">
+                            <span>Time: </span>
+                            <span id="timer-text">30</span>
+                            <span>s</span>
+                        </div>
+                        <div id="game-status">
+                            <span>Unsatisfied Customers: </span>
+                            <span id="angry-count">0</span>
+                            <span>/3</span>
+                        </div>
+                    </div>
+                </p>
+            </div>
+        </div>
+
+        <div id="controls">
+            <button id="serve-btn">Serve</button>
+        </div>
+
+        
+
+        <div id="game-over-screen" style="display: none;">
+            <div id="game-over-content">
+                <h1>GAME OVER!</h1>
+                <p>You left too many customers unsatisfied with your service!</p>
+                <button id="restart-btn">Play Again</button>
+            </div>
+        </div>
+
+        <script src = "js/main.js"></script>
+    </body>
+</html>

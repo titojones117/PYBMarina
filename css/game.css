@@ -1,0 +1,207 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.hand {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#customer-container {
+    position: relative;
+    margin-top: -500px;
+    left: 730px;
+    top: -50px;
+}
+
+#tv {
+    z-index: 10;
+    width: 720px;
+    height: 500px;
+    position: relative;
+}
+
+#tv-background {
+    position: absolute;
+    z-index: 1;
+    top: 140px;
+    left: 170px;
+    width: 300px;
+    height: 260px;
+}   
+
+#order-text {
+    top: 20px;
+    left: 5%;
+    transform: translateX(0);
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+#customer-img {
+    z-index: 2;
+    height: 250px;
+    width: 320px;
+    opacity: 0.9;
+}
+
+#customer{
+    position: absolute;
+    bottom: 0;
+    left: 23%;
+    top: 30%;
+    z-index: 5;
+}
+
+#speech-bubble {
+    position: absolute;
+    top: 166px;
+    right: 205%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: auto;
+    z-index: 15;
+}
+
+#controls {
+    position: absolute;
+    bottom: 86%;
+    left: 47%;
+    z-index: 20;
+    display: flex;
+}
+
+
+#serve-btn {
+    background-color: #4CAF50;
+    width:150px;
+    height: 55px;
+    font-size: 20px;
+    border-style: groove;
+    border-color: yellow;
+    border-width: 5px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#serve-btn:hover {
+    background-color: #45a049;
+}
+
+#serve-btn:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#serve-btn:disabled:hover {
+    background-color: #888;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#game-ui {
+    position: absolute;
+    width: 250px;
+    top: 170px;
+    right: 16%;
+    z-index: 20;
+    color: rgb(0, 0, 0);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#timer-display {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#timer-text {
+    color: #4CAF50;
+    font-size: 24px;
+}
+
+#timer-text.warning {
+    color: #FF9800;
+}
+
+#timer-text.danger {
+    color: #F44336;
+    animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+#game-status {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#angry-count {
+    color: #F44336;
+    font-weight: bold;
+}
+
+#game-over-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-over-content {
+    background-color: #2c2c2c;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#game-over-content h1 {
+    color: #F44336;
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+#game-over-content p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+#restart-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#restart-btn:hover {
+    background-color: #45a049;
+}
+
